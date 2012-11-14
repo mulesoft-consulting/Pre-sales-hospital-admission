@@ -1,0 +1,17 @@
+{
+	"Episode" : {
+		"episodeId" : "13412341432",
+		"PatientId" : "1234432",
+		"admission" : "Elective",
+		"startDate" : 2012-01-01,
+		"endDate" : 2012-01-01,
+		"care" : "Private"
+	},
+	"Bill" : {
+		"costPerNight" : 120.00,
+		"initialStayEstimate" : 5,
+		"runningTotal" : 600.00,
+		"status" : "Pending"
+	},
+	"InsuranceCoverStatus" : "Covered"
+}

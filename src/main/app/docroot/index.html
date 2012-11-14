@@ -68,6 +68,7 @@
 							      		$( "#dialog" ).dialog( "open" );
 							      	} else {
 							      	  	episode = response.Episode;
+							      	  	bill = response.Bill;
     									$('#episodeTable tbody')
     											.append('<tr><td>'
     															+ episode.episodeId
@@ -81,6 +82,14 @@
     															+ episode.endDate
     															+ '</td><td>'
     															+ episode.care
+    															+ '</td><td>'
+    															+ bill.costPerNight
+    															+ '</td><td>'
+    															+ bill.initialStayEstimate
+    															+ '</td><td>'
+    															+ bill.runningTotal
+    															+ '</td><td>'
+    															+ bill.status
     															+ '</td>');
 
     									tabs.tabs('enable', 1);
@@ -186,6 +195,10 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Care Type</th>
+            <th>Cost / Night</th>
+            <th>Estimate</th>
+            <th>Total</th>
+            <th>Status</th>
 		</tr>
 	</thead>
 	<tbody>

@@ -26,7 +26,6 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 		<mulexml:namespace prefix="mod" uri="http://www.mule-health.com/SOA/model/1.0" />
 		<mulexml:namespace prefix="ins" uri="http://www.insurance.com/message/1.0" />
 	</mulexml:namespace-manager>
-	<data-mapper:config name="admit_subect_to_admit_subject_response" transformationGraphPath="admit_subect_to_admit_subject_response.grf" doc:name="DataMapper" />
 	<data-mapper:config name="admit_subject_to_insurance_request" transformationGraphPath="admit_subject_to_insurance_request.grf" doc:name="DataMapper" />
 	<data-mapper:config name="admit_subject_to_upsert_patient" transformationGraphPath="admit_subject_to_upsert_patient.grf" doc:name="DataMapper" />
 	<data-mapper:config name="upsert_patient_response_to_create_episode" transformationGraphPath="upsert_patient_response_to_create_episode.grf" doc:name="DataMapper" />
@@ -35,12 +34,14 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 	<ajax:connector name="Ajax" serverUrl="http://0.0.0.0:8083/admissionService" resourceBase="${app.home}/docroot" jsonCommented="true" doc:name="Ajax" />
 	<data-mapper:config name="admit_subject_response_to_json" transformationGraphPath="admit_subject_response_to_json.grf" doc:name="DataMapper" />
 	<object-to-string-transformer name="Object_to_String" doc:name="Object to String" />
+    <data-mapper:config name="admit_subject_response_xx_to_json" transformationGraphPath="admit_subject_response_xx_to_json.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="create_episode_response_to_admit_subject_response" transformationGraphPath="create_episode_response_to_admit_subject_response.grf" doc:name="DataMapper"/>
 	<flow name="Hospital_Admissions_SOAFlow1" doc:name="Hospital_Admissions_SOAFlow1">
 		<ajax:inbound-endpoint channel="/admission/json" responseTimeout="10000" doc:name="/admission/json" connector-ref="Ajax" />
 		<data-mapper:transform config-ref="json_to_admit_subject" doc:name="Json to &amp;lt;AdmitSubject /&amp;gt;" />
 		<flow-ref name="invokeAdmissionServiceWithBody" doc:name="Invoke AdmissionService" />
 		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
-		<data-mapper:transform config-ref="admit_subject_response_to_json" doc:name="&amp;lt;AdmitSubjectResponse /&amp;gt; to Json" />
+        <data-mapper:transform config-ref="admit_subject_response_xx_to_json" doc:name="&lt;admitSubjectResponse /&gt; to Json"/>
 		<object-to-string-transformer doc:name="Object to String" />
 
 	</flow>
@@ -83,14 +84,17 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 	<sub-flow name="admitPatient" doc:name="admitPatient">
 		<flow-ref name="upsertPatient" doc:name="Upsert Patient" />
 		<flow-ref name="createEpisode" doc:name="Create Episode" />
-		<enricher target="flowVars.createBillResponse" doc:name="Enrich with &lt;createBillResponse /&gt;">
-			<flow-ref name="createBill" doc:name="Create Bill" />
-		</enricher>
-		<data-mapper:transform config-ref="admit_subect_to_admit_subject_response" doc:name="&amp;lt;createEpisodeResponse /&amp;gt; to &amp;lt;admitSubjectResponse /&amp;gt;">
-			<data-mapper:input-arguments>
-				<data-mapper:input-argument key="insuranceCoverStatus">#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text]</data-mapper:input-argument>
-			</data-mapper:input-arguments>
-		</data-mapper:transform>
+        <enricher target="flowVars.createBillResponse" doc:name="Enrich with &amp;lt;createBillResponse /&amp;gt;">
+            <flow-ref name="createBill" doc:name="Create Bill"/>
+        </enricher>
+        <data-mapper:transform config-ref="create_episode_response_to_admit_subject_response" doc:name="&lt;createEpisodeResponse /&gt; to &lt;admitSubjectResponse /&gt;">
+        	<data-mapper:input-arguments >
+        		<data-mapper:input-argument key="costPerNight">#[xpath('/mes:createBillResponse/mod:Bill/costPerNight/text()', flowVars.createBillResponse).text]</data-mapper:input-argument>
+        		<data-mapper:input-argument key="initialStayEstimate">#[xpath('/mes:createBillResponse/mod:Bill/initialStayEstimate/text()', flowVars.createBillResponse).text]</data-mapper:input-argument>
+        		<data-mapper:input-argument key="runningTotal">#[xpath('/mes:createBillResponse/mod:Bill/runningTotal/text()', flowVars.createBillResponse).text]</data-mapper:input-argument>
+        		<data-mapper:input-argument key="status">#[xpath('/mes:createBillResponse/mod:Bill/status/text()', flowVars.createBillResponse).text]</data-mapper:input-argument>
+        	</data-mapper:input-arguments>
+        </data-mapper:transform>
 	</sub-flow>
 	<flow name="auditTransaction" doc:name="auditTransaction">
         <composite-source doc:name="Composite Source">

@@ -70,9 +70,9 @@
 
 	<complexType name="billType">
 		<sequence>
-			<element name="costPerNight" type="float" />
-			<element name="initialStayEstimate" type="int" />
-			<element name="runningTotal" type="float" />
+			<element name="costPerNight" type="string" />
+			<element name="initialStayEstimate" type="string" />
+			<element name="runningTotal" type="string" />
 			<element name="status">
 				<simpleType>
 					<restriction base="string">
