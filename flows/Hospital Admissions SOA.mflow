@@ -1,0 +1,1549 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="Hospital Admissions SOA">
+    <global-element type="http://www.springframework.org/schema/beans/bean" name="Bean" entity-id="Bean#1">
+        <properties>
+            <property value="property-placeholder" name="id"/>
+            <property name="name"/>
+            <property value="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" name="class"/>
+            <property name="parent"/>
+            <property name="scope"/>
+            <property name="children"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property name="abstract"/>
+            <property name="lazy-init"/>
+            <property name="autowire"/>
+            <property name="depends-on"/>
+            <property name="autowire-candidate"/>
+            <property name="primary"/>
+            <property name="init-method"/>
+            <property name="destroy-method"/>
+            <property name="factory-method"/>
+            <property name="factory-bean"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;wrapIn"/>
+            <property-collection name="@http://www.springframework.org/schema/beans/property;0">
+                <property value="location" name="name"/>
+                <property value="classpath:config.${env}.properties" name="value"/>
+                <property value="3" name="auxiliary;wrapIn"/>
+                <property value="3" name="auxiliary;index"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <global-unknown index="4" description="false" entity-id="global-unknown#1">
+        <content>&lt;mulexml:namespace-manager xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; includeConfigNamespaces=&quot;true&quot;&gt;
+		&lt;mulexml:namespace prefix=&quot;soap&quot; uri=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;/&gt;
+		&lt;mulexml:namespace prefix=&quot;mes&quot; uri=&quot;http://www.mule-health.com/SOA/message/1.0&quot;/&gt;
+		&lt;mulexml:namespace prefix=&quot;mod&quot; uri=&quot;http://www.mule-health.com/SOA/model/1.0&quot;/&gt;
+		&lt;mulexml:namespace prefix=&quot;ins&quot; uri=&quot;http://www.insurance.com/message/1.0&quot;/&gt;
+	&lt;/mulexml:namespace-manager&gt;</content>
+    </global-unknown>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#1">
+        <properties>
+            <property value="admit_subect_to_admit_subject_response" name="name"/>
+            <property value="admit_subect_to_admit_subject_response.grf" name="transformationGraphPath"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+            <property value="9" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#2">
+        <properties>
+            <property value="admit_subject_to_insurance_request" name="name"/>
+            <property value="admit_subject_to_insurance_request.grf" name="transformationGraphPath"/>
+            <property value="10" name="auxiliary;index"/>
+            <property value="10" name="auxiliary;index"/>
+            <property value="10" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#3">
+        <properties>
+            <property value="admit_subject_to_upsert_patient" name="name"/>
+            <property value="admit_subject_to_upsert_patient.grf" name="transformationGraphPath"/>
+            <property value="11" name="auxiliary;index"/>
+            <property value="11" name="auxiliary;index"/>
+            <property value="11" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#4">
+        <properties>
+            <property value="upsert_patient_response_to_create_episode" name="name"/>
+            <property value="upsert_patient_response_to_create_episode.grf" name="transformationGraphPath"/>
+            <property value="12" name="auxiliary;index"/>
+            <property value="12" name="auxiliary;index"/>
+            <property value="12" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#5">
+        <properties>
+            <property value="create_episode_response_to_create_bill" name="name"/>
+            <property value="create_episode_response_to_create_bill.grf" name="transformationGraphPath"/>
+            <property value="13" name="auxiliary;index"/>
+            <property value="13" name="auxiliary;index"/>
+            <property value="13" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#6">
+        <properties>
+            <property value="json_to_admit_subject" name="name"/>
+            <property value="json_to_admit_subject.grf" name="transformationGraphPath"/>
+            <property value="14" name="auxiliary;index"/>
+            <property value="14" name="auxiliary;index"/>
+            <property value="14" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="org.mule.tooling.ui.modules.core.global.ajaxConnector" name="Ajax" entity-id="Ajax#1">
+        <properties>
+            <property value="Ajax" name="name"/>
+            <property value="http://0.0.0.0:8083/admissionService" name="serverUrl"/>
+            <property value="${app.home}/docroot" name="resourceBase"/>
+            <property name="disableReplyTo"/>
+            <property value="15" name="auxiliary;index"/>
+            <property name="logLevel"/>
+            <property name="refsThreshold"/>
+            <property value="true" name="jsonCommented"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property name="timeout"/>
+            <property name="interval"/>
+            <property name="maxInterval"/>
+            <property name="multiFrameInterval"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+            <property value="15" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" name="DataMapper" entity-id="DataMapper#7">
+        <properties>
+            <property value="admit_subject_response_to_json" name="name"/>
+            <property value="admit_subject_response_to_json.grf" name="transformationGraphPath"/>
+            <property value="16" name="auxiliary;index"/>
+            <property value="16" name="auxiliary;index"/>
+            <property value="16" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <global-element type="http://www.mulesoft.org/schema/mule/core/object-to-string-transformer" name="Object to String" entity-id="Object to String#1">
+        <properties>
+            <property name="returnClass"/>
+            <property name="ignoreBadInput"/>
+            <property name="encoding"/>
+            <property value="17" name="auxiliary;index"/>
+            <property name="mimeType"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="Object_to_String" name="name"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="17" name="auxiliary;index"/>
+            <property value="17" name="auxiliary;index"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="Hospital_Admissions_SOAFlow1" entity-id="37250795-3bfe-470c-ac63-af28bf8b4bd9">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="18" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+            <property value="18" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="org.mule.tooling.ui.modules.core.ajax.AJAX" name="/admission/json" entity-id="Ajax#2">
+                <properties>
+                    <property value="true" name="auxiliary;erased;mimeType"/>
+                    <property value="" name="businessEventsLabel"/>
+                    <property value="false" name="disableTransportTransformer"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="false" name="tracking:enable-default-events"/>
+                    <property value="" name="ref"/>
+                    <property value="" name="transformer-refs"/>
+                    <property value="" name="address"/>
+                    <property value="true" name="auxiliary;erased;encoding"/>
+                    <property value="" name="encoding"/>
+                    <property value="/admission/json" name="channel"/>
+                    <property value="10000" name="responseTimeout"/>
+                    <property value="" name="mimeType"/>
+                    <property value="Ajax" name="connector-ref"/>
+                    <property value="19" name="auxiliary;index"/>
+                    <property name="updated"/>
+                </properties>
+                <description></description>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="Json to &lt;AdmitSubject /&gt;" entity-id="DataMapper#8">
+                <properties>
+                    <property value="json_to_admit_subject" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="json_to_admit_subject" name="config-ref"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property name="input-ref"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                    <property value="20" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke AdmissionService" entity-id="Flow Reference#1">
+                <properties>
+                    <property value="invokeAdmissionServiceWithBody" name="name"/>
+                    <property value="21" name="auxiliary;index"/>
+                    <property value="21" name="auxiliary;index"/>
+                    <property value="21" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="22" description="false" entity-id="unknown#1">
+                <content>&lt;mulexml:dom-to-xml-transformer xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; returnClass=&quot;java.lang.String&quot;/&gt;</content>
+            </unknown>
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="&lt;AdmitSubjectResponse /&gt; to Json" entity-id="DataMapper#9">
+                <properties>
+                    <property value="admit_subject_response_to_json" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="admit_subject_response_to_json" name="config-ref"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property name="input-ref"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                    <property value="23" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/object-to-string-transformer" name="Object to String" entity-id="Object to String#2">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                    <property value="24" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="invokeAdmissionServiceWithBody" entity-id="dfb152ff-31ea-4652-aa4b-37c940814357">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="25" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="25" name="auxiliary;index"/>
+            <property value="25" name="auxiliary;index"/>
+            <property value="25" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy client" entity-id="SOAP#1">
+                <properties>
+                    <property value="" name="wsdlLocation"/>
+                    <property value="" name="port"/>
+                    <property value="" name="serviceClass"/>
+                    <property value="" name="operation"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="false" name="mtomEnabled"/>
+                    <property value="body" name="payload"/>
+                    <property value="true" name="enableMuleSoapHeaders"/>
+                    <property value="" name="configuration-ref"/>
+                    <property value="" name="decoupledEndpoint"/>
+                    <property value="26" name="auxiliary;index"/>
+                    <property name="updated"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-security-without-token-validator;1358437433">
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/ws-config;1776000098"/>
+                    </property-collection>
+                </properties>
+                <description></description>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="AdmissionService" entity-id="HTTP#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="AdmissionService" name="path"/>
+                    <property name="method"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                    <property value="27" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="soapProxy" entity-id="81de53cb-00fe-41b9-9a54-15e2a62c4b07">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="28" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="28" name="auxiliary;index"/>
+            <property value="28" name="auxiliary;index"/>
+            <property value="28" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#3">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="org.mule.tooling.ui.modules.core.ajax.AJAX" name="/admission/soap" entity-id="Ajax#3">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="/admission/soap" name="channel"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="10000" name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="address"/>
+                    <property name="cacheMessages"/>
+                    <property name="messageCacheSize"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="Ajax" name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="29" name="auxiliary;index"/>
+                    <property value="29" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke AdmissionService" entity-id="Flow Reference#2">
+                <properties>
+                    <property value="invokeAdmissionServiceWithEnvelope" name="name"/>
+                    <property value="30" name="auxiliary;index"/>
+                    <property value="30" name="auxiliary;index"/>
+                    <property value="30" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="31" description="false" entity-id="unknown#2">
+                <content>&lt;mulexml:dom-to-xml-transformer xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; returnClass=&quot;java.lang.String&quot;/&gt;</content>
+            </unknown>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="invokeAdmissionServiceWithEnvelope" entity-id="2d995955-dc95-4757-89fb-577264c34990">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="32" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="32" name="auxiliary;index"/>
+            <property value="32" name="auxiliary;index"/>
+            <property value="32" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#4">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy client" entity-id="SOAP#2">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property name="operation"/>
+                    <property name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="envelope" name="payload"/>
+                    <property name="port"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property value="true" name="enableMuleSoapHeaders"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                    <property value="33" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="AdmissionService" entity-id="HTTP#2">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="AdmissionService" name="path"/>
+                    <property name="method"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                    <property value="34" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="admitPatientService" entity-id="54c61a1a-c87d-423c-8140-9d6336440a4c">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="35" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="35" name="auxiliary;index"/>
+            <property value="35" name="auxiliary;index"/>
+            <property value="35" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#5">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="AdmissionService" entity-id="HTTP#3">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="AdmissionService" name="path"/>
+                    <property name="method"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="36" name="auxiliary;index"/>
+                    <property value="36" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy service" entity-id="SOAP#3">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property name="bindingId"/>
+                    <property value="AdmissionPort" name="port"/>
+                    <property value="http://www.mule-health.com/SOA/service/admission/1.0" name="namespace"/>
+                    <property value="AdmissionService" name="service"/>
+                    <property name="onException"/>
+                    <property name="serviceClass"/>
+                    <property name="validationEnabled"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="body" name="payload"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property value="service/AdmissionService.wsdl" name="wsdlLocation"/>
+                    <property name="enableMuleSoapHeaders"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                    <property value="37" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="38" description="false" entity-id="unknown#3">
+                <content>&lt;mulexml:dom-to-xml-transformer xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; returnClass=&quot;java.lang.String&quot;/&gt;</content>
+            </unknown>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="Audit Request" entity-id="VM#1">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="Request" name="path"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                    <property value="39" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+            <scope type="org.mule.tooling.ui.modules.core.scope.enricher" name="Enrich with &lt;InsuranceResponse /&gt;" entity-id="Message Enricher#1">
+                <properties>
+                    <property name="source"/>
+                    <property value="sessionVars.insuranceResponse" name="target"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                    <property value="40" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#6">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Get Insurance Policy" entity-id="Flow Reference#3">
+                            <properties>
+<property value="getInsurancePolicy" name="name"/>
+<property value="41" name="auxiliary;index"/>
+<property value="41" name="auxiliary;index"/>
+<property value="41" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </scope>
+            <splitter index="42" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
+                <properties>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property value="42" name=";INDEX"/>
+                    <property-collection name="f0d3605f-c348-4f10-bd92-bed8cac12b2d">
+                        <property value="true" name="choice.otherwise"/>
+                        <property-collection name="choice.attributes"/>
+                    </property-collection>
+                    <property-collection name="51dbed1a-1115-4434-a251-4801ae2649cd">
+                        <property value="#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text == 'Not covered']" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text == 'Not covered']" name="expression"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2">
+                    <properties>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property value="42" name=";INDEX"/>
+                        <property-collection name="f0d3605f-c348-4f10-bd92-bed8cac12b2d">
+                            <property value="true" name="choice.otherwise"/>
+                            <property-collection name="choice.attributes"/>
+                        </property-collection>
+                        <property-collection name="51dbed1a-1115-4434-a251-4801ae2649cd">
+                            <property value="#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text == 'Not covered']" name="choice.expression"/>
+                            <property-collection name="choice.attributes">
+<property value="#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text == 'Not covered']" name="expression"/>
+                            </property-collection>
+                        </property-collection>
+                    </properties>
+                </pattern>
+                <compartment entity-id="compartment#2">
+                    <lane isChoiceOtherwiseLane="false" index="44" hadOnlyOneElement="false" entity-id="51dbed1a-1115-4434-a251-4801ae2649cd">
+                        <pattern type="http://www.mulesoft.org/schema/mule/xml/xslt-transformer" name="&lt;admitSubjectResponse /&gt; (Rejected)" entity-id="XSLT#1">
+                            <properties>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="encoding"/>
+<property name="uriResolver"/>
+<property name="transformerFactoryClass"/>
+<property value="45" name="auxiliary;index"/>
+<property name="mimeType"/>
+<property value="45" name="auxiliary;index"/>
+<property value="2" name="maxIdleTransformers"/>
+<property value="5" name="maxActiveTransformers"/>
+<property value="45" name="auxiliary;index"/>
+<property value="45" name="auxiliary;index"/>
+<property value="admit-subject-response-rejected.xslt" name="xsl-file"/>
+<property name="outputEncoding"/>
+<property value="45" name="auxiliary;index"/>
+<property value="45" name="auxiliary;index"/>
+<property value="45" name="auxiliary;index"/>
+<property value="45" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane isChoiceOtherwiseLane="true" index="47" hadOnlyOneElement="false" entity-id="f0d3605f-c348-4f10-bd92-bed8cac12b2d">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Admit Patient" entity-id="Flow Reference#4">
+                            <properties>
+<property value="admitPatient" name="name"/>
+<property value="48" name="auxiliary;index"/>
+<property value="48" name="auxiliary;index"/>
+<property value="48" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </splitter>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="Audit Response" entity-id="VM#2">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property value="Response" name="path"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="responseTimeout"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property value="49" name="auxiliary;index"/>
+                    <property value="49" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="admitPatient" entity-id="90e657d9-a69b-4e03-97ad-940e02a6d98d">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="50" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="50" name="auxiliary;index"/>
+            <property value="50" name="auxiliary;index"/>
+            <property value="50" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#7">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Upsert Patient" entity-id="Flow Reference#5">
+                <properties>
+                    <property value="upsertPatient" name="name"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                    <property value="51" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Create Episode" entity-id="Flow Reference#6">
+                <properties>
+                    <property value="createEpisode" name="name"/>
+                    <property value="52" name="auxiliary;index"/>
+                    <property value="52" name="auxiliary;index"/>
+                    <property value="52" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <scope type="org.mule.tooling.ui.modules.core.scope.enricher" name="Enrich with &lt;createBillResponse /&gt;" entity-id="Message Enricher#2">
+                <properties>
+                    <property name="source"/>
+                    <property value="flowVars.createBillResponse" name="target"/>
+                    <property value="53" name="auxiliary;index"/>
+                    <property value="53" name="auxiliary;index"/>
+                    <property value="53" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#3">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#8">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Create Bill" entity-id="Flow Reference#7">
+                            <properties>
+<property value="createBill" name="name"/>
+<property value="54" name="auxiliary;index"/>
+<property value="54" name="auxiliary;index"/>
+<property value="54" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </scope>
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="&lt;createEpisodeResponse /&gt; to &lt;admitSubjectResponse /&gt;" entity-id="DataMapper#10">
+                <properties>
+                    <property value="admit_subect_to_admit_subject_response" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="admit_subect_to_admit_subject_response" name="config-ref"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property name="input-ref"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property value="55" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/ee/data-mapper/input-arguments;0">
+                        <property value="56" name="auxiliary;wrapIn"/>
+                        <property value="56" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/ee/data-mapper/input-argument;1">
+                            <property value="#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text]" name="value"/>
+                            <property value="57" name="auxiliary;wrapIn"/>
+                            <property value="57" name="auxiliary;index"/>
+                            <property value="insuranceCoverStatus" name="key"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="auditTransaction" entity-id="0c853646-9865-4a55-a0c5-d3766ddc2ef1">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="58" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="58" name="auxiliary;index"/>
+            <property value="58" name="auxiliary;index"/>
+            <property value="58" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#9">
+            <multi-source index="0" type="org.mule.tooling.ui.modules.core.endpoint.CompositeSource" name="Composite Source" entity-id="Composite Source#1">
+                <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="Request" entity-id="VM#3">
+                    <properties>
+                        <property value="one-way" name="exchange-pattern"/>
+                        <property value="one-way" name="exchange-pattern"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property value="Request" name="path"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property name="businessEventsLabel"/>
+                        <property name="tracking:enable-default-events"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property name="address"/>
+                        <property name="responseTimeout"/>
+                        <property name="encoding"/>
+                        <property name="disableTransportTransformer"/>
+                        <property name="mimeType"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property name="connector-ref"/>
+                        <property name="ref"/>
+                        <property name="transformer-refs"/>
+                        <property name="responseTransformer-refs"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property value="60" name="auxiliary;index"/>
+                        <property value="60" name="auxiliary;index"/>
+                    </properties>
+                </endpoint>
+                <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/vm/endpoint" name="Response" entity-id="VM#4">
+                    <properties>
+                        <property value="one-way" name="exchange-pattern"/>
+                        <property value="one-way" name="exchange-pattern"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property value="Response" name="path"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property name="businessEventsLabel"/>
+                        <property name="tracking:enable-default-events"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property name="address"/>
+                        <property name="responseTimeout"/>
+                        <property name="encoding"/>
+                        <property name="disableTransportTransformer"/>
+                        <property name="mimeType"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property name="connector-ref"/>
+                        <property name="ref"/>
+                        <property name="transformer-refs"/>
+                        <property name="responseTransformer-refs"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property value="61" name="auxiliary;index"/>
+                        <property value="61" name="auxiliary;index"/>
+                    </properties>
+                </endpoint>
+            </multi-source>
+            <pattern type="http://www.mulesoft.org/schema/mule/xml/xslt-transformer" name="&lt;auditTransaction&gt; payload &lt;/auditTransaction&gt;" entity-id="XSLT#2">
+                <properties>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="uriResolver"/>
+                    <property name="transformerFactoryClass"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property name="mimeType"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property value="2" name="maxIdleTransformers"/>
+                    <property value="5" name="maxActiveTransformers"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property value="payload-to-transaction.xslt" name="xsl-file"/>
+                    <property name="outputEncoding"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property value="62" name="auxiliary;index"/>
+                    <property value="62" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke Audit Service" entity-id="Flow Reference#8">
+                <properties>
+                    <property value="invokeAuditService" name="name"/>
+                    <property value="64" name="auxiliary;index"/>
+                    <property value="64" name="auxiliary;index"/>
+                    <property value="64" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="invokeAuditService" entity-id="3464233a-7366-4ad5-beb6-e72fa59bda98">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="65" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="65" name="auxiliary;index"/>
+            <property value="65" name="auxiliary;index"/>
+            <property value="65" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#10">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy client" entity-id="SOAP#4">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property name="operation"/>
+                    <property name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="body" name="payload"/>
+                    <property name="port"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property value="true" name="enableMuleSoapHeaders"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                    <property value="66" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="AuditService" entity-id="HTTP#4">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="AuditService" name="path"/>
+                    <property name="method"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                    <property value="67" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="getInsurancePolicy" entity-id="7961577f-1121-4def-b8ee-4843fb7bf756">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="68" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="68" name="auxiliary;index"/>
+            <property value="68" name="auxiliary;index"/>
+            <property value="68" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#11">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="&lt;admitSubject /&gt; to &lt;InsuranceRequest /&gt;" entity-id="DataMapper#11">
+                <properties>
+                    <property value="admit_subject_to_insurance_request" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="admit_subject_to_insurance_request" name="config-ref"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property name="input-ref"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property value="69" name="auxiliary;index"/>
+                    <property value="69" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke Insurance Service" entity-id="Flow Reference#9">
+                <properties>
+                    <property value="invokeInsuranceService" name="name"/>
+                    <property value="70" name="auxiliary;index"/>
+                    <property value="70" name="auxiliary;index"/>
+                    <property value="70" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="71" description="false" entity-id="unknown#4">
+                <content>&lt;mulexml:dom-to-xml-transformer xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; returnClass=&quot;java.lang.String&quot;/&gt;</content>
+            </unknown>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="invokeInsuranceService" entity-id="a6472c20-eb4a-4265-85c8-1c7ef29fb939">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="72" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="72" name="auxiliary;index"/>
+            <property value="72" name="auxiliary;index"/>
+            <property value="72" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#12">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy client" entity-id="SOAP#5">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property name="operation"/>
+                    <property name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="body" name="payload"/>
+                    <property name="port"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property value="true" name="enableMuleSoapHeaders"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                    <property value="73" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="InsuranceService" entity-id="HTTP#5">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="InsuranceService" name="path"/>
+                    <property name="method"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="74" name="auxiliary;index"/>
+                    <property value="74" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="upsertPatient" entity-id="a640b0f2-e788-46df-90f3-a6dd54b4e3d0">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="75" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="75" name="auxiliary;index"/>
+            <property value="75" name="auxiliary;index"/>
+            <property value="75" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#13">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="&lt;admitSubject /&gt; to &lt;upsertPatient /&gt;" entity-id="DataMapper#12">
+                <properties>
+                    <property value="admit_subject_to_upsert_patient" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="admit_subject_to_upsert_patient" name="config-ref"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property name="input-ref"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property value="76" name="auxiliary;index"/>
+                    <property value="76" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke Patient Service" entity-id="Flow Reference#10">
+                <properties>
+                    <property value="invokePatientService" name="name"/>
+                    <property value="77" name="auxiliary;index"/>
+                    <property value="77" name="auxiliary;index"/>
+                    <property value="77" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="78" description="false" entity-id="unknown#5">
+                <content>&lt;mulexml:dom-to-xml-transformer xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; returnClass=&quot;java.lang.String&quot;/&gt;</content>
+            </unknown>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="invokePatientService" entity-id="345f4e27-3df6-4faa-84bb-858d3aa88428">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="79" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="79" name="auxiliary;index"/>
+            <property value="79" name="auxiliary;index"/>
+            <property value="79" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#14">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy client" entity-id="SOAP#6">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property name="operation"/>
+                    <property name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="body" name="payload"/>
+                    <property name="port"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property value="true" name="enableMuleSoapHeaders"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                    <property value="80" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="PatientService" entity-id="HTTP#6">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="PatientService" name="path"/>
+                    <property name="method"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property value="81" name="auxiliary;index"/>
+                    <property value="81" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="createEpisode" entity-id="2289d06f-8368-4d25-a198-a0223ad2f15f">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="82" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="82" name="auxiliary;index"/>
+            <property value="82" name="auxiliary;index"/>
+            <property value="82" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#15">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="&lt;upsertPatientResponse /&gt; to &lt;createEpisode /&gt;" entity-id="DataMapper#13">
+                <properties>
+                    <property value="upsert_patient_response_to_create_episode" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="upsert_patient_response_to_create_episode" name="config-ref"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property name="input-ref"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property value="83" name="auxiliary;index"/>
+                    <property value="83" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke EHR Service" entity-id="Flow Reference#11">
+                <properties>
+                    <property value="invokeEHRService" name="name"/>
+                    <property value="84" name="auxiliary;index"/>
+                    <property value="84" name="auxiliary;index"/>
+                    <property value="84" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="85" description="false" entity-id="unknown#6">
+                <content>&lt;mulexml:dom-to-xml-transformer xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; returnClass=&quot;java.lang.String&quot;/&gt;</content>
+            </unknown>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="invokeEHRService" entity-id="41a609f2-2801-4021-a0e3-c7d0b00f7362">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="86" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="86" name="auxiliary;index"/>
+            <property value="86" name="auxiliary;index"/>
+            <property value="86" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#16">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy client" entity-id="SOAP#7">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property name="operation"/>
+                    <property name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="body" name="payload"/>
+                    <property name="port"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property value="true" name="enableMuleSoapHeaders"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                    <property value="87" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="EHRService" entity-id="HTTP#7">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="EHRService" name="path"/>
+                    <property name="method"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property value="88" name="auxiliary;index"/>
+                    <property value="88" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="createBill" entity-id="c21d6cd4-16af-437d-994b-e142932e0394">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="89" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="89" name="auxiliary;index"/>
+            <property value="89" name="auxiliary;index"/>
+            <property value="89" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#17">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" name="&lt;createEpisodeResponse /&gt; to &lt;createBill /&gt;" entity-id="DataMapper#14">
+                <properties>
+                    <property value="create_episode_response_to_create_bill" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="create_episode_response_to_create_bill" name="config-ref"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property name="input-ref"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property value="90" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/ee/data-mapper/input-arguments;0">
+                        <property value="91" name="auxiliary;wrapIn"/>
+                        <property value="91" name="auxiliary;index"/>
+                        <property-collection name="@http://www.mulesoft.org/schema/mule/ee/data-mapper/input-argument;1">
+                            <property value="#[xpath('/ins:InsuranceResponse/caseNumber/text()', sessionVars.insuranceResponse).text]" name="value"/>
+                            <property value="92" name="auxiliary;wrapIn"/>
+                            <property value="92" name="auxiliary;index"/>
+                            <property value="insuranceCaseNumber" name="key"/>
+                        </property-collection>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <pattern type="http://www.mulesoft.org/schema/mule/core/flow-ref" name="Invoke Billing Service" entity-id="Flow Reference#12">
+                <properties>
+                    <property value="invokeBillingService" name="name"/>
+                    <property value="93" name="auxiliary;index"/>
+                    <property value="93" name="auxiliary;index"/>
+                    <property value="93" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <unknown index="94" description="false" entity-id="unknown#7">
+                <content>&lt;mulexml:dom-to-xml-transformer xmlns:mulexml=&quot;http://www.mulesoft.org/schema/mule/xml&quot; returnClass=&quot;java.lang.String&quot;/&gt;</content>
+            </unknown>
+        </lane>
+    </flow>
+    <flow SubFlow="true" name="invokeBillingService" entity-id="7aa26c26-a840-408b-8534-9e874c593204">
+        <properties>
+            <property name="processingStrategy2"/>
+            <property name="processingStrategy"/>
+            <property value="95" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="95" name="auxiliary;index"/>
+            <property value="95" name="auxiliary;index"/>
+            <property value="95" name="auxiliary;index"/>
+        </properties>
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#18">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="Proxy client" entity-id="SOAP#8">
+                <properties>
+                    <property name="configuration-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/cxf/proxy-client" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property name="configuration-ref"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property name="operation"/>
+                    <property name="serviceClass"/>
+                    <property name="decoupledEndpoint"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="body" name="payload"/>
+                    <property name="port"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property name="mtomEnabled"/>
+                    <property name="wsdlLocation"/>
+                    <property value="true" name="enableMuleSoapHeaders"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                    <property value="96" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <endpoint message-exchange-pattern="OneWay" direction="Outbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="BillingService" entity-id="HTTP#8">
+                <properties>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
+                    <property value="localhost" name="host"/>
+                    <property value="${http.port}" name="port"/>
+                    <property value="BillingService" name="path"/>
+                    <property name="method"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="followRedirects"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property name="connector-ref"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="responseTransformer-refs"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property value="97" name="auxiliary;index"/>
+                    <property value="97" name="auxiliary;index"/>
+                </properties>
+            </endpoint>
+        </lane>
+    </flow>
+    <description></description>
+</mule-configuration>

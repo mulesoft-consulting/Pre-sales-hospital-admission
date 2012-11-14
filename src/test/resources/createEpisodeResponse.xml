@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:createEpisodeResponse xmlns:ns0="http://www.mule-health.com/SOA/message/1.0">
+	<ns1:Episode xmlns:ns1="http://www.mule-health.com/SOA/model/1.0">
+		<episodeId>1352662215387</episodeId>
+		<ns1:PatientId>1352662215298</ns1:PatientId>
+		<admission>Elective</admission>
+		<startDate>2012-11-11</startDate>
+		<endDate>2012-11-11</endDate>
+		<care>Private</care>
+	</ns1:Episode>
+</ns0:createEpisodeResponse>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:mod="http://www.mule-health.com/SOA/model/1.0" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mule-health.com/SOA/message/1.0" xmlns:tns="http://www.mule-health.com/SOA/message/1.0" elementFormDefault="unqualified">
+	<import namespace="http://www.mule-health.com/SOA/model/1.0" schemaLocation="SOA-Model-1.0.xsd" />
+	
+	<element name="admitSubject">
+		<complexType>
+			<sequence>
+				<element ref="mod:Referer" />
+				<element ref="mod:Referral" />
+				<element ref="mod:Subject" />
+			</sequence>
+		</complexType>
+	</element>
+	<element name="admitSubjectResponse">
+		<complexType>
+			<choice>
+				<element ref="mod:Episode" />
+				<element ref="mod:InsuranceCoverStatus" />
+			</choice>
+		</complexType>
+	</element>
+
+	<element name="upsertPatient">
+		<complexType>
+			<sequence>
+				<element ref="mod:Subject" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="upsertPatientResponse">
+		<complexType>
+			<sequence>
+				<element ref="mod:PatientId" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="getPatient">
+		<complexType>
+			<sequence>
+				<element ref="mod:PatientId" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="getPatientResponse">
+		<complexType>
+			<sequence>
+				<element ref="mod:Patient" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="createEpisode">
+		<complexType>
+			<sequence>
+				<element ref="mod:PatientId" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="createEpisodeResponse">
+		<complexType>
+			<sequence>
+				<element ref="mod:Episode" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="findEpisodes">
+		<complexType>
+			<sequence>
+				<element ref="mod:PatientId" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="findEpisodesResponse">
+		<complexType>
+			<sequence>
+				<element ref="mod:Episode" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="createBill">
+		<complexType>
+			<sequence>
+				<element ref="mod:Episode" />
+				<element ref="mod:InsuranceCaseNumber" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="createBillResponse">
+		<complexType>
+			<sequence>
+				<element ref="mod:Bill" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="auditTransaction">
+		<complexType>
+			<sequence>
+				<element ref="mod:Transaction" />
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>

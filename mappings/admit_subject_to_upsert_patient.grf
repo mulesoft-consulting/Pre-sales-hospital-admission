@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="nialdarbey" created="Mon Nov 05 17:17:55 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1352587939189" licenseCode="Unlicensed" licenseType="Commercial" modified="Mon Nov 05 17:17:55 GMT-03:00 2012" modifiedBy="nialdarbey" name="admit subject to upsert patient" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __sourcePath="{http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
+<Record fieldDelimiter="|" name="admitSubject" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Referer/clientId" containerType="" label="clientId" name="clientId" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Referral/procedure/code" containerType="" label="code" name="code" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Referral/procedure/admission" containerType="" label="admission" name="admission" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Referral/procedure/department" containerType="" label="department" name="department" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/nationalId" containerType="" label="nationalId" name="nationalId" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/firstName" containerType="" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/lastName" containerType="" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/address1" containerType="" label="address1" name="address1" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/address2" containerType="" label="address2" name="address2" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/address3" containerType="" label="address3" name="address3" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/nationality" containerType="" label="nationality" name="nationality" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/gender" containerType="" label="gender" name="gender" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:admitSubject/ns1:Subject/dateOfBirth" containerType="" label="dateOfBirth" name="dateOfBirth" type="date"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata1">
+<Record fieldDelimiter="|" name="upsertPatient" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/nationalId" containerType="" label="nationalId" name="nationalId" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/firstName" containerType="" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/lastName" containerType="" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/address1" containerType="" label="address1" name="address1" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/address2" containerType="" label="address2" name="address2" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/address3" containerType="" label="address3" name="address3" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/nationality" containerType="" label="nationality" name="nationality" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/gender" containerType="" label="gender" name="gender" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:upsertPatient/ns1:Subject/dateOfBirth" containerType="" label="dateOfBirth" name="dateOfBirth" type="date"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="XML WRITER" guiWidth="0" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER" xmlSchemaURL="./src/main/resources/service/xsd/SOA-Message-1.0.xsd">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ns0:upsertPatient xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://www.mule-health.com/SOA/message/1.0" clover:inPort="0">
+  <ns1:Subject xmlns:ns1="http://www.mule-health.com/SOA/model/1.0">
+    <nationalId>$0.nationalId</nationalId>
+    <firstName>$0.firstName</firstName>
+    <lastName>$0.lastName</lastName>
+    <address1>$0.address1</address1>
+    <address2>$0.address2</address2>
+    <address3>$0.address3</address3>
+    <nationality>$0.nationality</nationality>
+    <gender>$0.gender</gender>
+    <dateOfBirth>$0.dateOfBirth</dateOfBirth>
+  </ns1:Subject>
+</ns0:upsertPatient>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Node enabled="enabled" guiHeight="0" guiName="ns0:admitSubject_to_ns0:upsertPatient" guiWidth="0" guiX="460" guiY="20" id="REFORMAT0" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+$out.0.__id=$in.0.__id;
+	$out.0.nationalId=$in.0.nationalId;
+	$out.0.firstName=$in.0.firstName;
+	$out.0.lastName=$in.0.lastName;
+	$out.0.address1=$in.0.address1;
+	$out.0.address2=$in.0.address2;
+	$out.0.address3=$in.0.address3;
+	$out.0.nationality=$in.0.nationality;
+	$out.0.gender=$in.0.gender;
+	$out.0.dateOfBirth=$in.0.dateOfBirth;
+		return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="XML READER" guiWidth="0" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/service/xsd/SOA-Message-1.0.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://www.mule-health.com/SOA/message/1.0&quot;" outPort="0" sequenceField="__id" xpath="/ns0:admitSubject">
+  <Mapping cloverField="clientId" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Referer/clientId"/>
+  <Mapping cloverField="code" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Referral/procedure/code"/>
+  <Mapping cloverField="admission" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Referral/procedure/admission"/>
+  <Mapping cloverField="department" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Referral/procedure/department"/>
+  <Mapping cloverField="nationalId" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/nationalId"/>
+  <Mapping cloverField="firstName" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/firstName"/>
+  <Mapping cloverField="lastName" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/lastName"/>
+  <Mapping cloverField="address1" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/address1"/>
+  <Mapping cloverField="address2" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/address2"/>
+  <Mapping cloverField="address3" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/address3"/>
+  <Mapping cloverField="nationality" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/nationality"/>
+  <Mapping cloverField="gender" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/gender"/>
+  <Mapping cloverField="dateOfBirth" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:Subject/dateOfBirth"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="REFORMAT0:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT0:0"/>
+</Phase>
+</Graph>

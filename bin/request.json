@@ -1,0 +1,23 @@
+{
+	"Referrar" : {
+		"clientId" : ""
+	},
+	"Referral" : {
+		"procedure" : {
+			"code" : "In-patient",
+			"admission" : "Elective",
+			"department" : "Cardiology"
+		}
+	},
+	"Subject" : {
+		"nationalId" : "12341234",
+		"firstName" : "Nial",
+		"lastName" : "Darbey",
+		"address1" : "Italia",
+		"address2" : "",
+		"address3" : "",
+		"nationality" : "Irish",
+		"gender" : "Male",
+		"dateOfBirth" : 1970-01-01
+	}
+}

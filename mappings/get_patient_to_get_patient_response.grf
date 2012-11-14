@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="nialdarbey" created="Mon Nov 05 17:17:55 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1352640714515" licenseCode="Unlicensed" licenseType="Commercial" modified="Mon Nov 05 17:17:55 GMT-03:00 2012" modifiedBy="nialdarbey" name="get patient to get patient response" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __sourcePath="{http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatient" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
+<Record fieldDelimiter="|" name="getPatient" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatient/ns1:PatientId" label="ns1:PatientId" name="ns1_PatientId" type="string"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata1">
+<Record fieldDelimiter="|" name="getPatientResponse" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/nationalId" label="nationalId" name="nationalId" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/firstName" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/lastName" label="lastName" name="lastName" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/address1" label="address1" name="address1" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/address2" label="address2" name="address2" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/address3" label="address3" name="address3" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/nationality" label="nationality" name="nationality" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/gender" label="gender" name="gender" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/dateOfBirth" label="dateOfBirth" name="dateOfBirth" type="date"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:getPatientResponse/ns1:Patient/patientId" label="patientId" name="patientId" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="XML WRITER" guiWidth="0" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER" xmlSchemaURL="./src/main/resources/service/xsd/SOA-Message-1.0.xsd">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ns0:getPatientResponse xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://www.mule-health.com/SOA/message/1.0" clover:inPort="0">
+  <ns1:Patient xmlns:ns1="http://www.mule-health.com/SOA/model/1.0">
+    <nationalId>$0.nationalId</nationalId>
+    <firstName>$0.firstName</firstName>
+    <lastName>$0.lastName</lastName>
+    <address1>$0.address1</address1>
+    <address2>$0.address2</address2>
+    <address3>$0.address3</address3>
+    <nationality>$0.nationality</nationality>
+    <gender>$0.gender</gender>
+    <dateOfBirth>$0.dateOfBirth</dateOfBirth>
+    <patientId>$0.patientId</patientId>
+  </ns1:Patient>
+</ns0:getPatientResponse>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Node enabled="enabled" guiHeight="0" guiName="ns0:getPatient_to_ns0:getPatientResponse" guiWidth="0" guiX="460" guiY="20" id="REFORMAT0" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.patientId = num2str(date2long(today()));
+	$out.0.dateOfBirth = 1930-01-01;
+	$out.0.gender = 'Male';
+	$out.0.nationality = 'USA';
+	$out.0.address1 = 'DisneyLand';
+	$out.0.lastName = 'Duck';
+	$out.0.firstName = 'Donald';
+	$out.0.nationalId = num2str(date2long(today()));
+$out.0.__id=$in.0.__id;
+		return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="XML READER" guiWidth="0" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/service/xsd/SOA-Message-1.0.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://www.mule-health.com/SOA/message/1.0&quot;" outPort="0" sequenceField="__id" xpath="/ns0:getPatient">
+  <Mapping cloverField="ns1_PatientId" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:PatientId"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="REFORMAT0:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT0:0"/>
+</Phase>
+</Graph>

@@ -1,0 +1,191 @@
+p {
+	color: gray;
+}
+
+h1 {
+	color: #459E00;
+	font-size: 40pt;
+	font-family: segoe ui,Arial,sans-serif;
+	margin-bottom: 0px;
+}
+
+h2 {
+	color: gray;
+	font-size: 18pt;
+	text-align: center;
+}
+
+td {
+	vertical-align: top;
+}
+
+#frontButtons {
+	text-align: center;
+}
+
+#frontButtons a {
+	margin: 15px;
+}
+
+
+#tabs {
+	width: 1000px;	
+}
+
+#products {
+	width: 800px;
+}
+
+#addToCart {
+	width: 150px;
+	height: 800px;
+	padding: 10px;
+	text-align: center;
+	padding: 3px;
+	margin: 2px;
+}
+
+#addToCart.addToCartOFF {
+	color: gray;
+	background-color: #DBD9C8;
+}
+
+#addToCart.addToCartON {
+	color: #FF9C0A;
+	background-color: #FFFEE9; 
+}
+
+#addToCart.addToCartDROP {
+	color: #FFFFFF;
+	background-color: #B7B5A7;
+}
+
+
+#addProductToCartDialog {
+	display: none;
+}
+
+.product {
+	width: 700px;
+	height: 30px;
+	border: none;
+	padding: 2px;
+}
+
+.product h1 {
+	color: #FF9900;
+	font-size: 36pt;
+}
+
+.product h2 {
+	text-align: left;
+	color: #336600;
+	font-size: 18pt;
+}
+
+.product h3 {
+	color: gray;
+	font-size: 10pt;
+}
+.product .productCode {
+	width: 40%;
+}
+.product .productCode DIV.productCode{
+	display:inline;
+}
+.product .productProvider {
+	width: 60%;
+}
+.product .productPrice {
+	width: 200px;
+	text-align: right;
+}
+.product .productPrice DIV.productPrice{
+	display:inline;
+}
+
+
+.cartProduct {
+	width: 700px;
+	height: 30px;
+	border: none;
+	padding: 2px;
+}
+
+.cartProduct thead {
+	color: silver;
+	font-weight: bold;
+	font-size: 10pt;
+	text-align: center;
+			
+}
+
+
+.cartProduct h1 {
+	color: #FF9900;
+	font-size: 24pt;
+}
+
+.cartProduct h2 {
+	color: #336600;
+	font-size: 14pt;
+	text-align: left;
+}
+
+.cartProduct h3 {
+	color: gray;
+	font-size: 9pt;
+}
+
+.cartProduct .productCode {
+	width: 40%;
+}
+.cartProduct .productCode DIV.productCode{
+	display:inline;
+}
+
+.cartProduct .productProvider {
+	width: 60%;
+}
+
+.cartProduct .productQty {
+	width: 80px;
+	text-align: right;
+}
+
+.cartProduct .productPrice {
+	width: 200px;
+	text-align: right;
+}
+.cartProduct .productPrice DIV.productPrice {
+	display: inline;
+}
+
+.grandTotal {
+	width: 70%;
+}
+.grandTotalAmount {
+	width: 30%;
+}
+
+.grandTotal h2 {
+	color: #336600;
+	font-size: 14pt;
+	text-align: right;
+}
+.grandTotalAmount h1 {
+	color: #FF9900;
+	font-size: 24pt;
+	text-align: right;
+}
+
+#checkoutTotal {
+	display: inline;	
+}
+
+.comment {
+	color: silver;
+	font-size: 9pt;
+	display: inline;
+	padding: 3px;
+}

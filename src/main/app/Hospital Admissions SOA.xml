@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd 
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/ajax/current/mule-ajax.xsd 
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd 
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd ">
+
+	<!-- <custom-agent class="com.mulesoft.mule.debugger.server.DebuggerAgent" name="debuggerAgent"/> -->
+
+	<spring:beans>
+		<spring:bean id="property-placeholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<spring:property name="location" value="classpath:config.${env}.properties" />
+		</spring:bean>
+
+	</spring:beans>
+	<mulexml:namespace-manager includeConfigNamespaces="true">
+		<mulexml:namespace prefix="soap" uri="http://schemas.xmlsoap.org/soap/envelope/" />
+		<mulexml:namespace prefix="mes" uri="http://www.mule-health.com/SOA/message/1.0" />
+		<mulexml:namespace prefix="mod" uri="http://www.mule-health.com/SOA/model/1.0" />
+		<mulexml:namespace prefix="ins" uri="http://www.insurance.com/message/1.0" />
+	</mulexml:namespace-manager>
+	<data-mapper:config name="admit_subect_to_admit_subject_response" transformationGraphPath="admit_subect_to_admit_subject_response.grf" doc:name="DataMapper" />
+	<data-mapper:config name="admit_subject_to_insurance_request" transformationGraphPath="admit_subject_to_insurance_request.grf" doc:name="DataMapper" />
+	<data-mapper:config name="admit_subject_to_upsert_patient" transformationGraphPath="admit_subject_to_upsert_patient.grf" doc:name="DataMapper" />
+	<data-mapper:config name="upsert_patient_response_to_create_episode" transformationGraphPath="upsert_patient_response_to_create_episode.grf" doc:name="DataMapper" />
+	<data-mapper:config name="create_episode_response_to_create_bill" transformationGraphPath="create_episode_response_to_create_bill.grf" doc:name="DataMapper" />
+	<data-mapper:config name="json_to_admit_subject" transformationGraphPath="json_to_admit_subject.grf" doc:name="DataMapper" />
+	<ajax:connector name="Ajax" serverUrl="http://0.0.0.0:8083/admissionService" resourceBase="${app.home}/docroot" jsonCommented="true" doc:name="Ajax" />
+	<data-mapper:config name="admit_subject_response_to_json" transformationGraphPath="admit_subject_response_to_json.grf" doc:name="DataMapper" />
+	<object-to-string-transformer name="Object_to_String" doc:name="Object to String" />
+	<flow name="Hospital_Admissions_SOAFlow1" doc:name="Hospital_Admissions_SOAFlow1">
+		<ajax:inbound-endpoint channel="/admission/json" responseTimeout="10000" doc:name="/admission/json" connector-ref="Ajax" />
+		<data-mapper:transform config-ref="json_to_admit_subject" doc:name="Json to &amp;lt;AdmitSubject /&amp;gt;" />
+		<flow-ref name="invokeAdmissionServiceWithBody" doc:name="Invoke AdmissionService" />
+		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
+		<data-mapper:transform config-ref="admit_subject_response_to_json" doc:name="&amp;lt;AdmitSubjectResponse /&amp;gt; to Json" />
+		<object-to-string-transformer doc:name="Object to String" />
+
+	</flow>
+	<sub-flow name="invokeAdmissionServiceWithBody" doc:name="invokeAdmissionServiceWithBody">
+		<cxf:proxy-client doc:name="Proxy client" payload="body" enableMuleSoapHeaders="true"/>
+		<http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" doc:name="AdmissionService" path="AdmissionService" />
+	</sub-flow>
+	<flow name="soapProxy" doc:name="soapProxy">
+		<ajax:inbound-endpoint channel="/admission/soap" responseTimeout="10000" connector-ref="Ajax" doc:name="/admission/soap" />
+		<flow-ref name="invokeAdmissionServiceWithEnvelope" doc:name="Invoke AdmissionService" />
+		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
+	</flow>
+	<sub-flow name="invokeAdmissionServiceWithEnvelope" doc:name="invokeAdmissionServiceWithEnvelope">
+		<cxf:proxy-client payload="envelope" enableMuleSoapHeaders="true" doc:name="Proxy client" />
+		<http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" path="AdmissionService" doc:name="AdmissionService" />
+	</sub-flow>
+
+	<flow name="admitPatientService" doc:name="admitPatientService">
+		<http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" doc:name="AdmissionService" path="AdmissionService" />
+		<cxf:proxy-service doc:name="Proxy service" namespace="http://www.mule-health.com/SOA/service/admission/1.0" payload="body" port="AdmissionPort" service="AdmissionService" wsdlLocation="service/AdmissionService.wsdl" />
+		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
+		<vm:outbound-endpoint exchange-pattern="one-way" path="Request" doc:name="Audit Request" />
+		<enricher doc:name="Enrich with &lt;InsuranceResponse /&gt;" target="sessionVars.insuranceResponse">
+			<flow-ref name="getInsurancePolicy" doc:name="Get Insurance Policy" />
+		</enricher>
+		<choice doc:name="Choice">
+			<when expression="#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text == 'Not covered']">
+				<processor-chain>
+					<mulexml:xslt-transformer maxIdleTransformers="2" maxActiveTransformers="5" xsl-file="admit-subject-response-rejected.xslt" doc:name="&amp;lt;admitSubjectResponse /&amp;gt; (Rejected)" />
+				</processor-chain>
+			</when>
+			<otherwise>
+				<processor-chain>
+					<flow-ref name="admitPatient" doc:name="Admit Patient" />
+				</processor-chain>
+			</otherwise>
+		</choice>
+		<vm:outbound-endpoint exchange-pattern="one-way" path="Response" doc:name="Audit Response" />
+	</flow>
+	<sub-flow name="admitPatient" doc:name="admitPatient">
+		<flow-ref name="upsertPatient" doc:name="Upsert Patient" />
+		<flow-ref name="createEpisode" doc:name="Create Episode" />
+		<enricher target="flowVars.createBillResponse" doc:name="Enrich with &lt;createBillResponse /&gt;">
+			<flow-ref name="createBill" doc:name="Create Bill" />
+		</enricher>
+		<data-mapper:transform config-ref="admit_subect_to_admit_subject_response" doc:name="&amp;lt;createEpisodeResponse /&amp;gt; to &amp;lt;admitSubjectResponse /&amp;gt;">
+			<data-mapper:input-arguments>
+				<data-mapper:input-argument key="insuranceCoverStatus">#[xpath('/ins:InsuranceResponse/status/text()', sessionVars.insuranceResponse).text]</data-mapper:input-argument>
+			</data-mapper:input-arguments>
+		</data-mapper:transform>
+	</sub-flow>
+	<flow name="auditTransaction" doc:name="auditTransaction">
+        <composite-source doc:name="Composite Source">
+            <vm:inbound-endpoint exchange-pattern="one-way" path="Request" doc:name="Request"/>
+            <vm:inbound-endpoint exchange-pattern="one-way" path="Response" doc:name="Response"/>
+        </composite-source>
+		<mulexml:xslt-transformer maxIdleTransformers="2" maxActiveTransformers="5" doc:name="&amp;lt;auditTransaction&amp;gt; payload &amp;lt;/auditTransaction&amp;gt;" xsl-file="payload-to-transaction.xslt">
+			<mulexml:context-property key="transactionType" value="#[message.inboundProperties.MULE_ENDPOINT.substring(5)]" />
+		</mulexml:xslt-transformer>
+		<flow-ref name="invokeAuditService" doc:name="Invoke Audit Service" />
+	</flow>
+	<sub-flow name="invokeAuditService" doc:name="invokeAuditService">
+		<cxf:proxy-client payload="body" enableMuleSoapHeaders="true" doc:name="Proxy client" />
+		<http:outbound-endpoint exchange-pattern="one-way" host="localhost" port="${http.port}" doc:name="AuditService" path="AuditService" />
+	</sub-flow>
+	<sub-flow name="getInsurancePolicy" doc:name="getInsurancePolicy">
+		<data-mapper:transform config-ref="admit_subject_to_insurance_request" doc:name="&amp;lt;admitSubject /&amp;gt; to &amp;lt;InsuranceRequest /&amp;gt;" />
+		<flow-ref name="invokeInsuranceService" doc:name="Invoke Insurance Service" />
+		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
+	</sub-flow>
+	<sub-flow name="invokeInsuranceService" doc:name="invokeInsuranceService">
+		<cxf:proxy-client payload="body" enableMuleSoapHeaders="true" doc:name="Proxy client" />
+		<http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" doc:name="InsuranceService" path="InsuranceService" />
+	</sub-flow>
+	<sub-flow name="upsertPatient" doc:name="upsertPatient">
+		<data-mapper:transform config-ref="admit_subject_to_upsert_patient" doc:name="&amp;lt;admitSubject /&amp;gt; to &amp;lt;upsertPatient /&amp;gt;" />
+		<flow-ref name="invokePatientService" doc:name="Invoke Patient Service" />
+		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
+	</sub-flow>
+	<sub-flow name="invokePatientService" doc:name="invokePatientService">
+		<cxf:proxy-client payload="body" enableMuleSoapHeaders="true" doc:name="Proxy client" />
+		<http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" path="PatientService" doc:name="PatientService" />
+	</sub-flow>
+	<sub-flow name="createEpisode" doc:name="createEpisode">
+		<data-mapper:transform config-ref="upsert_patient_response_to_create_episode" doc:name="&amp;lt;upsertPatientResponse /&amp;gt; to &amp;lt;createEpisode /&amp;gt;" />
+		<flow-ref name="invokeEHRService" doc:name="Invoke EHR Service" />
+		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
+	</sub-flow>
+	<sub-flow name="invokeEHRService" doc:name="invokeEHRService">
+		<cxf:proxy-client payload="body" enableMuleSoapHeaders="true" doc:name="Proxy client" />
+		<http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" path="EHRService" doc:name="EHRService" />
+	</sub-flow>
+	<sub-flow name="createBill" doc:name="createBill">
+		<data-mapper:transform config-ref="create_episode_response_to_create_bill" doc:name="&amp;lt;createEpisodeResponse /&amp;gt; to &amp;lt;createBill /&amp;gt;">
+			<data-mapper:input-arguments>
+				<data-mapper:input-argument key="insuranceCaseNumber">#[xpath('/ins:InsuranceResponse/caseNumber/text()', sessionVars.insuranceResponse).text]</data-mapper:input-argument>
+			</data-mapper:input-arguments>
+		</data-mapper:transform>
+		<flow-ref name="invokeBillingService" doc:name="Invoke Billing Service" />
+		<mulexml:dom-to-xml-transformer returnClass="java.lang.String" />
+	</sub-flow>
+	<sub-flow name="invokeBillingService" doc:name="invokeBillingService">
+		<cxf:proxy-client doc:name="Proxy client" enableMuleSoapHeaders="true" payload="body" />
+		<http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" doc:name="BillingService" path="BillingService" />
+	</sub-flow>
+</mule>

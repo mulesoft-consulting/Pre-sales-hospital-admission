@@ -1,0 +1,246 @@
+<html>
+<head>
+<link href="css/south-street/jquery-ui-1.8.20.custom.css"
+	rel="stylesheet" type="text/css" />
+<link href="css/estore.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+<script type="text/javascript" src="mule-resource/js/mule.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						tabs = $("#tabs").tabs({
+							selected : 0
+						});
+						$( "#dialog" ).dialog({
+				            modal: true,
+				            autoOpen : false,
+				            buttons: {
+				                Ok: function() {
+				                    $( this ).dialog( "close" );
+				                }
+				            }
+				        });
+						$('.button').button();
+						$('.datepicker').datepicker({dateFormat : "yy-mm-dd" });
+						$('#submitButton')
+								.click(
+										function() {
+											$('#episodeTable tbody tr')
+											.remove();
+											var admissionRequest = {
+												Referrar : {
+												  clientId : $('#clientId').text()
+												},
+												Referral : {
+												  procedure : {
+												    code : $('#care').val(),
+												    admission : $('#admission').val(),
+												    department : $('#department').val()
+												  }
+												},
+												Subject : {
+													nationalId : $('#nationalId').val(),
+													firstName : $('#firstName').val(),
+													lastName : $('#lastName').val(),
+													address1 : $('#address1').val(),
+													address2 : $('#address2').val(),
+													address3 : $('#address3').val(),
+													nationality : $('#nationality').val(),
+													gender : $('#gender').val(),
+													dateOfBirth : $('#dateOfBirth').val()
+												}
+											}
+											var request = JSON.stringify(admissionRequest);
+											mule.rpc("/admission/json",
+													request, responseHandler);
+										});
+						$('#resetButton').click(function() {
+							$('#form input').val('');
+							$('#episodeTable tbody tr').remove();
+						});
+						function responseHandler(message, error) {
+							if (error == null) {
+							    response = JSON.parse(message.data);
+							    if (response.error == null) {
+							      	if (response.InsuranceCoverStatus == 'Not covered') {
+							      		$( "#dialog" ).dialog( "open" );
+							      	} else {
+							      	  	episode = response.Episode;
+    									$('#episodeTable tbody')
+    											.append('<tr><td>'
+    															+ episode.episodeId
+    															+ '</td><td>'
+    															+ episode.PatientId
+    															+ '</td><td>'
+    															+ episode.admission
+    															+ '</td><td>'
+    															+ episode.startDate
+    															+ '</td><td>'
+    															+ episode.endDate
+    															+ '</td><td>'
+    															+ episode.care
+    															+ '</td>');
+
+    									tabs.tabs('enable', 1);
+    									tabs.tabs('select', 1);
+							      	}
+							    } else {
+							      alert(response.error);
+							    }
+							} else {
+								alert(error.data);
+							}
+						}
+						$("#soapSubmitButton").click(
+								function() {
+									mule.rpc('/admission/soap', $("#soapRequest")
+											.val(), function(data) {
+										$('#soapResponse').val(data.data);
+									});
+								});
+						
+
+					});
+</script>
+</head>
+<body>
+
+<h1>Mule Clinic</h1>
+<div id="tabs">
+<ul>
+	<li><a href="#form"><span>Form</span></a></li>
+	<li><a href="#confirmation"><span>Confirmation</span></a></li>
+	<li><a href="#soap"><span>Soap</span></a></li>
+</ul>
+<div id="form" style="padding: 1em;">
+<p>Patient Details</p>
+<table width='40%' class='payment'>
+    <tr>
+        <td class="title">User Id:</td><td id="clientId">16876jk</td>
+    </tr>
+   	<tr>
+		<td class="title">Care</td>
+        <td class="field"><select id="care">
+            <option value="In-patient">In-patient</option>
+            <option value="Day-patient">Day-patient</option>
+            <option value="Out-patient">Out-patient</option>
+        </select></td>
+    </tr>
+    <tr>
+        <td class="title">Department</td>
+        <td class="field"><select id="department">
+            <option value="Cardiology">Cardiology</option>
+            <option value="Epilepsy">Epilepsy</option>
+            <option value="Neurology">Neurology</option>
+        </select></td>
+   </tr>
+   <tr>
+        <td class="title">National Id</td>
+        <td class="field"><input size="10" maxLength="16" name="nationalId" type="text" id="nationalId"/></td>
+   </tr>
+   <tr>
+        <td class="title">First Name:</td>
+        <td class="field"><input size="10" maxLength="16" name="firstName" type="text" id="firstName"/></td>
+   </tr>
+   <tr>
+        <td class="title">Last Name:</td>
+        <td class="field"><input size="10" maxLength="16" name="lastName" type="text" id="lastName"/></td>
+   </tr>
+   <tr>
+        <td class="title">Address 1:</td>
+        <td class="field"><input size="10" maxLength="16" name="address1" type="text" id="address1"/></td>
+   </tr>
+   <tr>
+        <td class="title">Address 2:</td>
+        <td class="field"><input size="10" maxLength="16" name="address2" type="text" id="address2"/></td>
+   </tr>
+   <tr>
+        <td class="title">Address 3:</td>
+        <td class="field"><input size="10" maxLength="16" name="address3" type="text" id="address3"/></td>
+   </tr>
+   <tr>
+        <td class="title">Nationality:</td>
+        <td class="field"><input size="10" maxLength="16" name="nationality" type="text" id="nationality"/></td>
+   </tr>
+   <tr>
+        <td class="title">Gender</td>
+        <td class="field"><input size="10" maxLength="16" name="gender" type="text" id="gender" /></td>
+   </tr>
+    	<td class="title">Date of Birth</td>
+    	<td class="field"><input size="10" maxlength="16" name="dateOfBirth" id="dateOfBirth" type="text" class="datepicker" /></td>
+	</tr>
+</table>
+<a id="submitButton" class="button" style="float: right;">Submit
+&gt;&gt;</a> <a id="resetButton" class="button" style="float: right :">Reset</a>
+</div>
+<div id="confirmation">
+<p>Order Summary</p>
+<table style="text-align: left; width: 100%;" id="episodeTable">
+	<thead>
+		<tr>
+			<th>Episode ID</th>
+			<th>Patient ID</th>
+            <th>Admission</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Care Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- Order summary rows will be inserted here -->
+	</tbody>
+</table>
+</div>
+<div id="soap">
+<div id="response" style="float: right; width: 50%;">
+<h2>Response</h2>
+<textarea id="soapResponse" style="width: 100%; height: 300px;" >
+</textarea>
+</div>
+<div id="request" style="width: 50%;">
+<h2>Request</h2>
+<textarea id="soapRequest" style="width: 100%; height: 300px;">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.mule-health.com/SOA/message/1.0" xmlns:ns1="http://www.mule-health.com/SOA/model/1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:admitSubject>
+         <ns1:Referer>
+            <clientId>1324</clientId>
+         </ns1:Referer>
+         <ns1:Referral>
+            <procedure>
+               <code>In-patient</code>
+               <admission>Elective</admission>
+               <department>Cardiology</department>
+            </procedure>
+         </ns1:Referral>
+         <ns1:Subject>
+            <nationalId>132443</nationalId>
+            <firstName>Nialo</firstName>
+            <lastName>Darbey</lastName>
+            <address1>Italia</address1>
+            <address2></address2>
+            <address3></address3>
+            <nationality>Irish</nationality>
+            <gender>Male</gender>
+            <dateOfBirth>1970-01-01</dateOfBirth>
+         </ns1:Subject>
+      </ns:admitSubject>
+   </soapenv:Body>
+</soapenv:Envelope>
+</textarea> 
+<a id="soapSubmitButton" class="button">Submit &gt;&gt;</a>
+</div>
+</div>
+
+</div>
+<div id="dialog" title="Patient Not Admissable">
+    <p>
+        <span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;"></span>
+        	This patient is not admissable due to lack of Insurance Cover.
+    </p>
+</div>
+</body>
+</html>

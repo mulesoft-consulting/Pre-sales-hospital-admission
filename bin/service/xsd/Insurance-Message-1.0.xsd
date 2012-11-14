@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.insurance.com/message/1.0" xmlns:tns="http://www.insurance.com/message/1.0" elementFormDefault="unqualified">
+
+	<element name="InsuranceRequest">
+		<complexType>
+			<sequence>
+				<element name="nationalId" type="string" />
+				<element name="name" type="string" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="InsuranceResponse">
+		<complexType>
+			<sequence>
+				<element name="insuranceNumber" type="string" />
+				<element name="status" type="tns:statusType" />
+				<element name="plan" type="tns:planType" minOccurs="0" />
+				<element name="caseNumber" type="string" minOccurs="0" />
+			</sequence>
+		</complexType>
+	</element>
+	<simpleType name="statusType">
+		<restriction base="string">
+			<enumeration value="COVERED" />
+			<enumeration value="NOT_COVERED" />
+		</restriction>
+	</simpleType>
+	<simpleType name="planType">
+		<restriction base="string">
+			<enumeration value="BASIC" />
+			<enumeration value="PREMIUM" />
+			<enumeration value="ROYAL" />
+		</restriction>
+	</simpleType>
+</schema>

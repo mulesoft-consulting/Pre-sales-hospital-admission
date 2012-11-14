@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="nialdarbey" created="Mon Nov 05 17:17:55 GMT-03:00 2012" guiVersion="3.3.0.M2" id="1352640777495" licenseCode="Unlicensed" licenseType="Commercial" modified="Mon Nov 05 17:17:55 GMT-03:00 2012" modifiedBy="nialdarbey" name="create episode to create episode response" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __sourcePath="{http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisode" _dataStructure="OBJECT" _id="__id" _type="Input" id="Metadata0">
+<Record fieldDelimiter="|" name="createEpisode" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisode/ns1:PatientId" label="ns1:PatientId" name="ns1_PatientId" type="string"/>
+</Record>
+</Metadata>
+<Metadata __sourcePath="{http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisodeResponse" _dataStructure="OBJECT" _id="__id" _type="Output" id="Metadata1">
+<Record fieldDelimiter="|" name="createEpisodeResponse" recordDelimiter="&#10;" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisodeResponse/ns1:Episode/episodeId" label="episodeId" name="episodeId" type="string"/>
+<Field __sourcePath="{http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisodeResponse/ns1:Episode/ns1:PatientId" label="ns1:PatientId" name="ns1_PatientId" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisodeResponse/ns1:Episode/admission" label="admission" name="admission" type="string"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisodeResponse/ns1:Episode/startDate" label="startDate" name="startDate" type="date"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisodeResponse/ns1:Episode/endDate" label="endDate" name="endDate" type="date"/>
+<Field __sourcePath="{=,http://www.mule-health.com/SOA/model/1.0=ns1,http://www.mule-health.com/SOA/message/1.0=ns0}/ns0:createEpisodeResponse/ns1:Episode/care" label="care" name="care" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:outputPayload" guiHeight="0" guiName="XML WRITER" guiWidth="0" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER" xmlSchemaURL="./src/main/resources/service/xsd/SOA-Message-1.0.xsd">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<ns0:createEpisodeResponse xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://www.mule-health.com/SOA/message/1.0" clover:inPort="0">
+  <ns1:Episode xmlns:ns1="http://www.mule-health.com/SOA/model/1.0">
+    <episodeId>$0.episodeId</episodeId>
+    <ns1:PatientId>$0.ns1_PatientId</ns1:PatientId>
+    <admission>$0.admission</admission>
+    <startDate>$0.startDate</startDate>
+    <endDate>$0.endDate</endDate>
+    <care>$0.care</care>
+  </ns1:Episode>
+</ns0:createEpisodeResponse>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Node enabled="enabled" guiHeight="0" guiName="ns0:createEpisode_to_ns0:createEpisodeResponse" guiWidth="0" guiX="460" guiY="20" id="REFORMAT0" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.endDate = today();
+	$out.0.admission = 'Elective';
+	$out.0.care = 'Private';
+	$out.0.startDate = today();
+	$out.0.episodeId = num2str(date2long(today()));
+$out.0.__id=$in.0.__id;
+	$out.0.ns1_PatientId=$in.0.ns1_PatientId;
+		return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiHeight="0" guiName="XML READER" guiWidth="0" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/service/xsd/SOA-Message-1.0.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context namespacePaths="ns0=&quot;http://www.mule-health.com/SOA/message/1.0&quot;" outPort="0" sequenceField="__id" xpath="/ns0:createEpisode">
+  <Mapping cloverField="ns1_PatientId" namespacePaths="ns1=&quot;http://www.mule-health.com/SOA/model/1.0&quot;" trim="true" xpath="ns1:PatientId"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="REFORMAT0:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (out)" toNode="REFORMAT0:0"/>
+</Phase>
+</Graph>

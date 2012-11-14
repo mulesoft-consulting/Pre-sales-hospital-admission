@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:mes="http://www.insurance.com/message" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Insurance" targetNamespace="http://www.insurance.com/service" xmlns:tns="http://www.insurance.com/service">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.insurance.com/message" xmlns:tns="http://www.insurance.com/message" elementFormDefault="unqualified">
+
+			<element name="InsuranceRequest">
+				<complexType>
+					<sequence>
+						<element name="nationalId" type="string" />
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="InsuranceResponse">
+				<complexType>
+					<sequence>
+						<element name="insuranceNumber" type="string" />
+						<element name="status" type="tns:statusType" />
+						<element name="plan" type="tns:planType" minOccurs="0" />
+						<element name="caseNumber" type="string" minOccurs="0" />
+					</sequence>
+				</complexType>
+			</element>
+			<simpleType name="statusType">
+				<restriction base="string">
+					<enumeration value="COVERED" />
+					<enumeration value="NOT_COVERED" />
+				</restriction>
+			</simpleType>
+			<simpleType name="planType">
+				<restriction base="string">
+					<enumeration value="BASIC" />
+					<enumeration value="PREMIUM" />
+					<enumeration value="ROYAL" />
+				</restriction>
+			</simpleType>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="InsuranceRequest">
+		<wsdl:part element="mes:InsuranceRequest" name="InsuranceRequest" />
+	</wsdl:message>
+	<wsdl:message name="InsuranceResponse">
+		<wsdl:part element="mes:InsuranceResponse" name="InsuranceResponse" />
+	</wsdl:message>
+	<wsdl:portType name="InsurancePortType">
+		<wsdl:operation name="verify">
+			<wsdl:input message="tns:InsuranceRequest" />
+			<wsdl:output message="tns:InsuranceResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="InsuranceSOAP" type="tns:InsurancePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="verify">
+			<soap:operation soapAction="http://www.insurance.com/service/verify" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="InsuranceService">
+		<wsdl:port binding="tns:InsuranceSOAP" name="InsurancePort">
+			<soap:address location="http://www.mule-insurance.com/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
