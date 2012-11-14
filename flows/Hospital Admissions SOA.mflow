@@ -649,6 +649,11 @@
                     <property value="43" name=";INDEX"/>
                     <property value="43" name=";INDEX"/>
                     <property value="43" name=";INDEX"/>
+                    <property value="43" name=";INDEX"/>
+                    <property value="43" name=";INDEX"/>
+                    <property value="43" name=";INDEX"/>
+                    <property value="43" name=";INDEX"/>
+                    <property value="43" name=";INDEX"/>
                     <property-collection name="f6cecd62-a104-4b97-9500-b373a71095e3">
                         <property value="true" name="choice.otherwise"/>
                         <property-collection name="choice.attributes"/>
@@ -662,6 +667,11 @@
                 </properties>
                 <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2">
                     <properties>
+                        <property value="43" name=";INDEX"/>
+                        <property value="43" name=";INDEX"/>
+                        <property value="43" name=";INDEX"/>
+                        <property value="43" name=";INDEX"/>
+                        <property value="43" name=";INDEX"/>
                         <property value="43" name=";INDEX"/>
                         <property value="43" name=";INDEX"/>
                         <property value="43" name=";INDEX"/>

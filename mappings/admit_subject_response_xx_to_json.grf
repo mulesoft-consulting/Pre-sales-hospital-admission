@@ -66,6 +66,7 @@
 
 // Transforms input record into output record.
 function integer transform() {
+	$out.0.InsuranceCoverStatus = $in.0.ns1_InsuranceCoverStatus;
 	$out.0.PatientId = $in.0.ns1_PatientId;
 $out.0.__id=$in.0.__id;
 	$out.0.episodeId=$in.0.episodeId;
